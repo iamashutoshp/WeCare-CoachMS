@@ -56,13 +56,13 @@ public class CoachController {
 				details.add(e.getField().toUpperCase() + ":" + e.getDefaultMessage() + " | ");
 
 			response.setMessage("Invalid input");
-			response.setDetails(details.toString());
+			response.setResult(details.toString());
 			return response;
 		}
 
 		coachId = coachService.createRoute(coachDTO);
-		response.setMessage(coachId);
-		response.setDetails("New Coach created");
+		response.setMessage("New Coach created");
+		response.setResult(coachId);
 
 		log.info("Coach Created with CoachID : " + coachId);
 		return response;

@@ -10,13 +10,13 @@ public class CustomResponse {
 
 	private String message;
 
-	private String details;
+	private Object result;
 
-	public CustomResponse(HttpStatus httpStatus, String message, String details) {
+	public CustomResponse(HttpStatus httpStatus, String message, Object result) {
 		this.httpStatus = httpStatus;
 		this.timestamp = LocalDateTime.now();
 		this.message = message;
-		this.details = details;
+		this.result = result;
 	}
 
 	public HttpStatus getHttpStatus() {
@@ -43,12 +43,12 @@ public class CustomResponse {
 		this.message = message;
 	}
 
-	public String getDetails() {
-		return details;
+	public Object getResult() {
+		return result;
 	}
 
-	public void setDetails(String details) {
-		this.details = details;
+	public void setResult(Object result) {
+		this.result = result;
 	}
 
 }
