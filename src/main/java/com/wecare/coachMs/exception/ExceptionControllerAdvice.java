@@ -14,18 +14,24 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.wecare.coachMs.responseModel.CustomResponse;
 
 @RestControllerAdvice
-public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
+public class ExceptionControllerAdvice {
 
-	@Override
-	protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		CustomResponse error = new CustomResponse(HttpStatus.BAD_REQUEST, "Validation Error", ex.getBindingResult().toString());
-		return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+	@ExceptionHandler(Exception.class)
+	public String exceptionHandler(Exception ex) {
+		return ex.getMessage();
 	}
-
+	
 	@ExceptionHandler(EntityNotFoundException.class)
 	private ResponseEntity<CustomResponse> handleEntityNotFound(EntityNotFoundException ex) {
 		CustomResponse error = new CustomResponse(HttpStatus.NOT_FOUND, "Entity not found", ex.getMessage());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(NoSuchCoachException.class)
+	public ResponseEntity<ErrorMessage> noSuchCoachException(NoSuchCoachException ex) {
+		ErrorMessage error = new ErrorMessage();
+		error.setErrorCode(HttpStatus.BAD_REQUEST.value());
+		error.setMessage(ex.getMessage());
+		return new ResponseEntity<>(error, HttpStatus.OK);
 	}
 }
