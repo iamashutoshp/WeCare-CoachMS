@@ -7,10 +7,11 @@ import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.util.UrlPathHelper;
 
+
 @SpringBootApplication
 @EnableDiscoveryClient
 public class WeCareCoachMsApplication implements WebMvcConfigurer {
-
+	
 	public static void main(String[] args) {
 		SpringApplication.run(WeCareCoachMsApplication.class, args);
 	}

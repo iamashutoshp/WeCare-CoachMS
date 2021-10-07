@@ -2,8 +2,13 @@ package com.wecare.coachMs.dto;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.wecare.coachMs.entity.CoachEntity;
 
 public class CoachDTO {
 
@@ -11,7 +16,7 @@ public class CoachDTO {
 	@NotEmpty(message="{password.empty}")
 	@Size(min = 5, max = 10,message="{password.length.invalid}")
 	private String password;
-	
+
 	@NotEmpty(message="{name.empty}")
 	@Size(min = 3, max = 50,message="{name.length.invalid}")
 	private String name;
@@ -20,8 +25,9 @@ public class CoachDTO {
 
 	private char gender;
 	
-	@NotEmpty(message="{phoneNo.empty}")
-	@Size(min = 10, max = 10,message="{phoneNo.length.invalid}")
+	@NotNull(message="{phoneNo.empty}")
+	@Min(1000000000L)
+	@Max(9999999999L)
 	private Long mobileNumber;
 	
 	@NotEmpty(message="{speciality.empty}")
@@ -82,5 +88,36 @@ public class CoachDTO {
 
 	public void setSpeciality(String speciality) {
 		this.speciality = speciality;
+	}
+	
+	@Override
+	public String toString() {
+		return "CoachDTO [coachId=" + coachId + ", password=" + password + ", name=" + name + ", dateOfBirth="
+				+ dateOfBirth + ", gender=" + gender + ", mobileNumber=" + mobileNumber + ", speciality=" + speciality
+				+ "]";
+	}
+	
+	public static CoachEntity prepareCoachEntity(CoachDTO coachDTO) {
+		CoachEntity coachEntity=new CoachEntity();
+		coachEntity.setCoachId(coachDTO.getCoachId());
+		coachEntity.setGender(coachDTO.getGender());
+		coachEntity.setDateOfBirth(coachDTO.getDateOfBirth());
+		coachEntity.setMobileNumber(coachDTO.getMobileNumber());
+		coachEntity.setName(coachDTO.getName());
+		coachEntity.setPassword(coachDTO.getPassword());
+		coachEntity.setSpeciality(coachDTO.getSpeciality());
+		return coachEntity;
+	}
+	
+	public static CoachDTO prepareCoachDTO(CoachEntity coachEntity) {
+		CoachDTO coachDTO=new CoachDTO();
+		coachDTO.setCoachId(coachEntity.getCoachId());
+		coachDTO.setGender(coachEntity.getGender());
+		coachDTO.setDateOfBirth(coachEntity.getDateOfBirth());
+		coachDTO.setMobileNumber(coachEntity.getMobileNumber());
+		coachDTO.setName(coachEntity.getName());
+		coachDTO.setPassword(coachEntity.getPassword());
+		coachDTO.setSpeciality(coachEntity.getSpeciality());
+		return coachDTO;
 	}
 }
