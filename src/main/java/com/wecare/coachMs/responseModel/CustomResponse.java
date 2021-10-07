@@ -12,6 +12,10 @@ public class CustomResponse {
 
 	private Object result;
 
+	public CustomResponse() {
+		super();
+	}
+	
 	public CustomResponse(HttpStatus httpStatus, String message, Object result) {
 		this.httpStatus = httpStatus;
 		this.timestamp = LocalDateTime.now();
